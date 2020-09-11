@@ -24,16 +24,17 @@
 
 ## items テーブル
 
-| Column              | Type    | Options     |
-| ------------------- | ------  | ----------- |
-| goods               | string  | null: false |
-| details             | text    | null: false |
-| category            | integer | null: false |
-| status              | integer | null: false |
-| shipping_fee_burden | integer | null: false |
-| shipping_area       | integer | null: false |
-| days_to_ship        | integer | null: false |
-| price               | integer | null: false |
+| Column              | Type       | Options                        |
+| ------------------- | ---------- | ------------------------------ |
+| goods               | string     | null: false                    |
+| details             | text       | null: false                    |
+| category            | integer    | null: false                    |
+| status              | integer    | null: false                    |
+| shipping_fee_burden | integer    | null: false                    |
+| shipping_area       | integer    | null: false                    |
+| days_to_ship        | integer    | null: false                    |
+| price               | integer    | null: false                    |
+| user                | references | null: false, foreign_key: true |
 
 ### Association
 
