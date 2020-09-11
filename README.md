@@ -17,7 +17,6 @@
 
 ### Association
 
-- has_many :user_items
 - has_many :items
 - has_many :comments
 - has_many :buys
@@ -38,22 +37,9 @@
 
 ### Association
 
-- has_many :user_items
 - belongs_to :user
 - has_many :comments
 - has_one :buy
-
-## user_items テーブル
-
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| user   | references | null: false, foreign_key: true |
-| item   | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
-- belongs_to :item
 
 ## buys テーブル
 
