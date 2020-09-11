@@ -56,14 +56,15 @@ has_one :shipping_address
 
 ## shipping_addresses
 
-| Column         | Type    | Options     |
-| -------------- | ------- | ----------- |
-| postal_code    | string  | null: false |
-| prefectures    | integer | null: false |
-| city_name      | string  | null: false |
-| address        | string  | null: false |
-| building_name  | string  |             |
-| phone_number   | string  | null: false |
+| Column         | Type       | Options                        |
+| -------------- | -------    | ------------------------------ |
+| postal_code    | string     | null: false                    |
+| prefectures    | integer    | null: false                    |
+| city_name      | string     | null: false                    |
+| address        | string     | null: false                    |
+| building_name  | string     |                                |
+| phone_number   | string     | null: false                    |
+| buy            | references | null: false, foreign_key: true |
 
 ### Association
 
