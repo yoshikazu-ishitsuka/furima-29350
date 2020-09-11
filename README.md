@@ -20,7 +20,7 @@
 - has_many :user_items
 - has_many :items
 - has_many :comments
-- has_one :buy
+- has_many :buys
 
 ## items テーブル
 
