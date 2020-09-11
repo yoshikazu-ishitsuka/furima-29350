@@ -18,29 +18,29 @@
 ### Association
 
 - has_many :user_items
-- has_many :items, through: user_items
+- has_many :items
 - has_many :comments
+- has_one :buy
 
 ## items テーブル
 
 | Column              | Type    | Options     |
 | ------------------- | ------  | ----------- |
-| image               | string  | null: false |
 | goods               | string  | null: false |
 | details             | text    | null: false |
-| category            | string  | null: false |
-| status              | string  | null: false |
-| shipping_fee_burden | string  | null: false |
-| shipping_area       | string  | null: false |
-| days_to_ship        | string  | null: false |
+| category            | integer | null: false |
+| status              | integer | null: false |
+| shipping_fee_burden | integer | null: false |
+| shipping_area       | integer | null: false |
+| days_to_ship        | integer | null: false |
 | price               | integer | null: false |
 
 ### Association
 
 - has_many :user_items
-- has_many :users, through: user_items
+- belongs_to :user
 - has_many :comments
-- has_one :credit_card
+- has_one :buy
 
 ## user_items テーブル
 
@@ -54,16 +54,16 @@
 - belongs_to :user
 - belongs_to :item
 
-## credit_cards テーブル
+## buys テーブル
 
-| Column             | Type       | Options     |
-| ------------------ | ---------- | ----------- |
-| credit_card_number | integer    | null: false |
-| expiration_date    | integer    | null: false |
-| security_code      | integer    | null: false |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
 
 ### Association
 
+belongs_to :user
 belongs_to :item
 has_one :shipping_address
 
@@ -71,16 +71,16 @@ has_one :shipping_address
 
 | Column         | Type    | Options     |
 | -------------- | ------- | ----------- |
-| postal_code    | integer | null: false |
-| prefectures    | string  | null: false |
-| address_line_1 | string  | null: false |
-| address_line_2 | string  | null: false |
-| address_line_3 | string  |             |
-| phone_number   | integer | null: false |
+| postal_code    | string  | null: false |
+| prefectures    | integer | null: false |
+| city_name      | string  | null: false |
+| address        | string  | null: false |
+| building_name  | string  |             |
+| phone_number   | string  | null: false |
 
 ### Association
 
-belongs_to :credit_card
+belongs_to :buy
 
 ## comments テーブル
 
