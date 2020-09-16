@@ -9,7 +9,7 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /.+@.+/.freeze
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
-  PASSWORD_REGEX = /[a-z\d]{6,}/i.freeze
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
   validates :password, presence: true, length: { minimum: 6 }, confirmation: true, \
                        format: { with: PASSWORD_REGEX, message: '英字と数字の両方を含めて設定してください' }
 

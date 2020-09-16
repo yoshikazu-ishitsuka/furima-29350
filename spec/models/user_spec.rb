@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-describe User do
-  before do
-    @user = FactoryBot.build(:user)
-  end
+RSpec.describe User, type: :model do
+  describe '#create' do
+    before do
+      @user = FactoryBot.build(:user)
+    end
 
   describe 'ユーザー新規登録' do
     context '新規登録がうまくいくとき' do
@@ -51,8 +52,7 @@ describe User do
       end
       it '重複したemailが存在する場合は登録できない' do
         @user.save
-        another_user = FactoryBot.build(:user)
-        another_user.email = @user.email
+        another_user = FactoryBot.build(:user, email: @user.email)
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
@@ -71,6 +71,18 @@ describe User do
         @user.password_confirmation = 'abcd5'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      end
+      it 'passwordが数字のみだと登録できない' do
+        @user.password = '111111'
+        @user.password_confirmation = '111111'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password 英字と数字の両方を含めて設定してください')
+      end
+      it 'passwordが英字のみだと登録できない' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password 英字と数字の両方を含めて設定してください')
       end
       it 'passwordが存在してもpassword_confirmationが空だと登録できない' do
         @user.password_confirmation = ''
@@ -124,4 +136,5 @@ describe User do
       end
     end
   end
+end
 end
