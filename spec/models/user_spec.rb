@@ -58,7 +58,6 @@ describe User do
       it "emailに＠がない場合は登録できない" do
         @user.email = "mail.gmail.com"
         @user.valid?
-        # binding.pry
         expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it "passwordが空だと登録できない" do
@@ -70,7 +69,6 @@ describe User do
         @user.password = "abcd5"
         @user.password_confirmation ="abcd5"
         @user.valid?
-        # binding.pry
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
       it "passwordが存在してもpassword_confirmationが空だと登録できない" do
