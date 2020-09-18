@@ -1,14 +1,19 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
   def index
   end
 
   def new
+    @item = Item.new
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @item = @user.items.new(item_params)
-    @item.save
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   private

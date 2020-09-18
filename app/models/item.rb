@@ -10,8 +10,11 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  validates :goods, :details, :price, presence: true
+  validates :image, :goods, :details, :price, presence: true
 
   validates :category_id, :status_id, :shipping_fee_burden_id, :shipping_area_id, :days_to_ship_id, \
-            numericality: { only_integer: true }
+            :price, numericality: { only_integer: true }
+
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "適正な販売価格を入力してください" }
+
 end
