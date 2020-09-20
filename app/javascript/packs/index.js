@@ -8,8 +8,8 @@ function calculation() {
   
   itemPrice.addEventListener('input', function(){
     value = itemPrice.value
-    addTaxPrice.innerHTML = Math.floor(value * 0.1)
-    Profit.innerHTML = Math.floor(value * 0.9)
+    addTaxPrice.innerHTML = Math.floor(value * 0.1).toLocaleString()
+    Profit.innerHTML = Math.floor(value * 0.9).toLocaleString()
   })
 }
 
