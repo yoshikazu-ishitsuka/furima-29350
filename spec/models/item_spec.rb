@@ -11,7 +11,7 @@ RSpec.describe Item, type: :model do
       context '商品出品登録がうまくいくとき' do
         it 'goods,details,category_id,status_id,shipping_fee_burden_id,shipping_area_id, \
             days_to_ship_id,price,user_idが存在すれば登録できる' do
-            expect(@item).to be_valid
+          expect(@item).to be_valid
         end
         it 'imageが存在すれば登録できる' do
           expect(@item).to be_valid
@@ -36,29 +36,29 @@ RSpec.describe Item, type: :model do
         it 'category_idが空だと登録できない' do
           @item.category_id = ''
           @item.valid?
-          expect(@item.errors.full_messages).to include("Category is not a number")
+          expect(@item.errors.full_messages).to include('Category is not a number')
         end
-        
+
         it 'status_idが空だと登録できない' do
           @item.status_id = ''
           @item.valid?
-          expect(@item.errors.full_messages).to include("Status is not a number")
+          expect(@item.errors.full_messages).to include('Status is not a number')
         end
-        
+
         it 'shipping_fee_burden_idが空だと登録できない' do
           @item.shipping_fee_burden_id = ''
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping fee burden is not a number")
+          expect(@item.errors.full_messages).to include('Shipping fee burden is not a number')
         end
         it 'shipping_area_idが空だと登録できない' do
           @item.shipping_area_id = ''
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping area is not a number")
+          expect(@item.errors.full_messages).to include('Shipping area is not a number')
         end
         it 'days_to_ship_idが空だと登録できない' do
           @item.days_to_ship_id = ''
           @item.valid?
-          expect(@item.errors.full_messages).to include("Days to ship is not a number")
+          expect(@item.errors.full_messages).to include('Days to ship is not a number')
         end
         it 'priceが空だと登録できない' do
           @item.price = ''
@@ -68,25 +68,24 @@ RSpec.describe Item, type: :model do
         it 'priceが¥300より小さいと登録できない' do
           @item.price = '299'
           @item.valid?
-          expect(@item.errors.full_messages).to include("Price 適正な販売価格を入力してください")
+          expect(@item.errors.full_messages).to include('Price 適正な販売価格を入力してください')
         end
         it 'priceが¥9,999,999より大きいと登録できない' do
           @item.price = '10,000,000'
           @item.valid?
-          expect(@item.errors.full_messages).to include("Price 適正な販売価格を入力してください")
+          expect(@item.errors.full_messages).to include('Price 適正な販売価格を入力してください')
         end
         it 'priceが全角数字だと登録できない' do
           @item.price = '３００'
           @item.valid?
-          expect(@item.errors.full_messages).to include("Price 適正な販売価格を入力してください")
+          expect(@item.errors.full_messages).to include('Price 適正な販売価格を入力してください')
         end
         it 'ユーザーが紐付いていないと登録できない' do
           @item.user = nil
           @item.valid?
-          expect(@item.errors.full_messages).to include("User must exist")
+          expect(@item.errors.full_messages).to include('User must exist')
         end
       end
-      
     end
   end
 end
