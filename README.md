@@ -19,29 +19,29 @@
 
 - has_many :items
 - has_many :comments
-- has_many :buys
+- has_many :orders
 
 ## items テーブル
 
-| Column              | Type       | Options                        |
-| ------------------- | ---------- | ------------------------------ |
-| goods               | string     | null: false                    |
-| details             | text       | null: false                    |
-| category            | integer    | null: false                    |
-| status              | integer    | null: false                    |
-| shipping_fee_burden | integer    | null: false                    |
-| shipping_area       | integer    | null: false                    |
-| days_to_ship        | integer    | null: false                    |
-| price               | integer    | null: false                    |
-| user                | references | null: false, foreign_key: true |
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| goods                  | string     | null: false                    |
+| details                | text       | null: false                    |
+| category_id            | integer    | null: false                    |
+| status_id              | integer    | null: false                    |
+| shipping_fee_burden_id | integer    | null: false                    |
+| shipping_area_id       | integer    | null: false                    |
+| days_to_ship_id        | integer    | null: false                    |
+| price                  | integer    | null: false                    |
+| user                   | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - has_many :comments
-- has_one :buy
+- has_one :order
 
-## buys テーブル
+## orders テーブル
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
@@ -52,23 +52,23 @@
 
 belongs_to :user
 belongs_to :item
-has_one :shipping_address
+has_one :address
 
-## shipping_addresses
+## addresses
 
 | Column         | Type       | Options                        |
 | -------------- | -------    | ------------------------------ |
 | postal_code    | string     | null: false                    |
-| prefectures    | integer    | null: false                    |
+| prefecture_id  | integer    | null: false                    |
 | city_name      | string     | null: false                    |
 | address        | string     | null: false                    |
 | building_name  | string     |                                |
 | phone_number   | string     | null: false                    |
-| buy            | references | null: false, foreign_key: true |
+| order          | references | null: false, foreign_key: true |
 
 ### Association
 
-belongs_to :buy
+belongs_to :order
 
 ## comments テーブル
 
