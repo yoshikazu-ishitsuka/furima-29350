@@ -64,6 +64,11 @@ RSpec.describe Address, type: :model do
           @address.valid?
           expect(@address.errors.full_messages).to include('Phone number is not a number')
         end
+        it 'phone_numberが12桁以上だと登録できない' do
+          @address.phone_number = '090123456789'
+          @address.valid?
+          expect(@address.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
+        end
         it 'tokenが空だと購入できない' do
           @address.token = ''
           @address.valid?
