@@ -4,7 +4,7 @@ class UserOrder
                 :phone_number, :token, :user_id, :item_id, :order_id
 
   validates :postal_code, :prefecture_id, :city_name, :address, :phone_number, :token, presence: true
-  validates :prefecture_id, numericality: { only_integer: true }
+  validates :prefecture_id, :phone_number, numericality: { only_integer: true }
   validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/ }, length: { maximum: 8 }
   validates :phone_number, format: { with: /\d+/ }, length: { maximum: 11 }
 
