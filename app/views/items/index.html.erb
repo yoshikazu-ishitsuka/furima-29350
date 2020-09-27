@@ -132,11 +132,12 @@
         <%= link_to "#" do %>
         <div class='item-img-content'>
           <%= link_to image_tag(item.image.variant(resize:'226x226'), class: "item-img"), item_path(item.id) %>
-          <%# 商品が売れていればsold outを表示しましょう %>
+
+          <% if item.order != nil %>
           <div class='sold-out'>
-            <%# <span>Sold Out!!</span> %>
+            <span>Sold Out!!</span>
           </div>
-          <%# //商品が売れていればsold outを表示しましょう %>
+          <% end %>
 
         </div>
         <div class='item-info'>

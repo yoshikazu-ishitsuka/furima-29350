@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
+  has_many :orders
 
   validates :nickname, presence: true
 
@@ -20,8 +21,10 @@ class User < ApplicationRecord
     validates :first_name
   end
 
-  validates :last_name_kana, presence: true, format: { with: /\A[ァ-ン]+\z/, message: '全角（カタカナ）を使用してください' }
-  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ン]+\z/, message: '全角（カタカナ）を使用してください' }
+  with_options presence: true, format: { with: /\A[ァ-ン]+\z/, message: '全角（カタカナ）を使用してください' } do
+    validates :last_name_kana
+    validates :first_name_kana
+  end
 
   validates :birthday, presence: true
 end
