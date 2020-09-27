@@ -8,7 +8,7 @@ RSpec.describe Address, type: :model do
 
     describe '商品配送先登録' do
       context '商品配送先登録がうまくいくとき' do
-        it 'postal_code,prefecture_id,city_name,address,phone_number,order_idが存在すれば登録できる' do
+        it 'token,postal_code,prefecture_id,city_name,address,phone_number,order_idが存在すれば登録できる' do
           expect(@address).to be_valid
         end
       end
@@ -63,6 +63,11 @@ RSpec.describe Address, type: :model do
           @address.phone_number = '03-123-4567'
           @address.valid?
           expect(@address.errors.full_messages).to include('Phone number is not a number')
+        end
+        it 'tokenが空だと購入できない' do
+          @address.token = ''
+          @address.valid?
+          expect(@address.errors.full_messages).to include("Token can't be blank")
         end
       end
     end
