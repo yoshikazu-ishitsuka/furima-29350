@@ -16,12 +16,12 @@ RSpec.describe Order, type: :model do
         it 'ユーザーが紐付いていないと登録できない' do
           @order.user = nil
           @order.valid?
-          expect(@order.errors.full_messages).to include("User must exist")
+          expect(@order.errors.full_messages).to include('User must exist')
         end
         it '商品が紐付いていないと登録できない' do
           @order.item = nil
           @order.valid?
-          expect(@order.errors.full_messages).to include("Item must exist")
+          expect(@order.errors.full_messages).to include('Item must exist')
         end
       end
     end

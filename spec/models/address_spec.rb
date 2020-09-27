@@ -22,22 +22,22 @@ RSpec.describe Address, type: :model do
         it 'postal_codeがハイフンが無いと登録できない' do
           @address.postal_code = '1234567'
           @address.valid?
-          expect(@address.errors.full_messages).to include("Postal code is invalid")
+          expect(@address.errors.full_messages).to include('Postal code is invalid')
         end
         it 'postal_codeが整数以外だと登録できない' do
           @address.postal_code = 'あああ-ああああ'
           @address.valid?
-          expect(@address.errors.full_messages).to include("Postal code is invalid")
+          expect(@address.errors.full_messages).to include('Postal code is invalid')
         end
         it 'prefecture_idが空だと登録できない' do
           @address.prefecture_id = ''
           @address.valid?
-          expect(@address.errors.full_messages).to include("Prefecture is not a number")
+          expect(@address.errors.full_messages).to include('Prefecture is not a number')
         end
         it 'prefecture_idが"---"だと登録できない' do
-          @address.prefecture_id = "---"
+          @address.prefecture_id = '---'
           @address.valid?
-          expect(@address.errors.full_messages).to include("Prefecture is not a number")
+          expect(@address.errors.full_messages).to include('Prefecture is not a number')
         end
         it 'city_nameが空だと登録できない' do
           @address.city_name = ''
@@ -57,12 +57,12 @@ RSpec.describe Address, type: :model do
         it 'phone_numberが整数以外だと登録できない' do
           @address.phone_number = 'あああああああああああ'
           @address.valid?
-          expect(@address.errors.full_messages).to include("Phone number is invalid")
+          expect(@address.errors.full_messages).to include('Phone number is invalid')
         end
         it 'phone_numberにハイフンがあると登録できない' do
           @address.phone_number = '03-123-4567'
           @address.valid?
-          expect(@address.errors.full_messages).to include("Phone number is not a number")
+          expect(@address.errors.full_messages).to include('Phone number is not a number')
         end
       end
     end
