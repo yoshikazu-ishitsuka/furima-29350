@@ -3,10 +3,12 @@ class UserOrder
   attr_accessor :postal_code, :prefecture_id, :city_name, :address, :building_name, \
                 :phone_number, :token, :user_id, :item_id, :order_id
 
-  validates :postal_code, :prefecture_id, :city_name, :address, :phone_number, :token, presence: true
-  validates :prefecture_id, :phone_number, numericality: { only_integer: true }
+  validates :postal_code, :prefecture_id, :city_name, :address, :phone_number, presence: true
+  validates :prefecture_id, numericality: { only_integer: true }
   validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/ }, length: { maximum: 8 }
-  validates :phone_number, format: { with: /\d+/ }, length: { maximum: 11 }
+  validates :phone_number, numericality: { only_integer: true, message: 'はハイフン無しで登録してください' }, \
+                           format: { with: /\d+/ }, length: { maximum: 11 }
+  validates :token, presence: true, format: { with: /\d+/, message: 'は正しい値を入力してください' }
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
