@@ -18,12 +18,12 @@ RSpec.describe User, type: :model do
         it 'nicknameが空だと登録できない' do
           @user.nickname = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("ニックネームを入力してください")
+          expect(@user.errors.full_messages).to include('ニックネームを入力してください')
         end
         it 'emailが空だと登録できない' do
           @user.email = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("Eメールを入力してください")
+          expect(@user.errors.full_messages).to include('Eメールを入力してください')
         end
         it '重複したemailが存在する場合は登録できない' do
           @user.save
@@ -39,7 +39,7 @@ RSpec.describe User, type: :model do
         it 'passwordが空だと登録できない' do
           @user.password = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("パスワードを入力してください")
+          expect(@user.errors.full_messages).to include('パスワードを入力してください')
         end
         it 'passwordが5文字以下だと登録できない' do
           @user.password = 'abcd5'
@@ -62,12 +62,12 @@ RSpec.describe User, type: :model do
         it 'passwordが存在してもpassword_confirmationが空だと登録できない' do
           @user.password_confirmation = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("パスワード（確認用）とパスワードの入力が一致しません")
+          expect(@user.errors.full_messages).to include('パスワード（確認用）とパスワードの入力が一致しません')
         end
         it 'last_nameが空だと登録できない' do
           @user.last_name = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("苗字を入力してください")
+          expect(@user.errors.full_messages).to include('苗字を入力してください')
         end
         it 'last_nameが全角以外だと登録できない' do
           @user.last_name = 'yamada'
@@ -77,7 +77,7 @@ RSpec.describe User, type: :model do
         it 'first_nameが空だと登録できない' do
           @user.first_name = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("名前を入力してください")
+          expect(@user.errors.full_messages).to include('名前を入力してください')
         end
         it 'first_nameが全角以外だと登録できない' do
           @user.first_name = 'rikutaro'
@@ -87,7 +87,7 @@ RSpec.describe User, type: :model do
         it 'last_name_kanaが空だと登録できない' do
           @user.last_name_kana = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("苗字のフリガナを入力してください")
+          expect(@user.errors.full_messages).to include('苗字のフリガナを入力してください')
         end
         it 'last_name_kanaが全角カナ以外だと登録できない' do
           @user.last_name_kana = 'ﾔﾏﾀﾞ'
@@ -97,7 +97,7 @@ RSpec.describe User, type: :model do
         it 'first_name_kanaが空だと登録できない' do
           @user.first_name_kana = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("名前のフリガナを入力してください")
+          expect(@user.errors.full_messages).to include('名前のフリガナを入力してください')
         end
         it 'first_name_kanaが全角カナ以外だと登録できない' do
           @user.first_name_kana = 'ﾘｸﾀﾛｳ'
@@ -107,7 +107,7 @@ RSpec.describe User, type: :model do
         it 'birthdayが空だと登録できない' do
           @user.birthday = ''
           @user.valid?
-          expect(@user.errors.full_messages).to include("誕生日を入力してください")
+          expect(@user.errors.full_messages).to include('誕生日を入力してください')
         end
       end
     end

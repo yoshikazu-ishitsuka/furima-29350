@@ -17,7 +17,7 @@ RSpec.describe UserOrder, type: :model do
         it 'postal_codeが空だと登録できない' do
           @user_order.postal_code = ''
           @user_order.valid?
-          expect(@user_order.errors.full_messages).to include("郵便番号を入力してください")
+          expect(@user_order.errors.full_messages).to include('郵便番号を入力してください')
         end
         it 'postal_codeがハイフンが無いと登録できない' do
           @user_order.postal_code = '1234567'
@@ -42,17 +42,17 @@ RSpec.describe UserOrder, type: :model do
         it 'city_nameが空だと登録できない' do
           @user_order.city_name = ''
           @user_order.valid?
-          expect(@user_order.errors.full_messages).to include("市区町村を入力してください")
+          expect(@user_order.errors.full_messages).to include('市区町村を入力してください')
         end
         it 'addressが空だと登録できない' do
           @user_order.address = ''
           @user_order.valid?
-          expect(@user_order.errors.full_messages).to include("番地を入力してください")
+          expect(@user_order.errors.full_messages).to include('番地を入力してください')
         end
         it 'phone_numberが空だと登録できない' do
           @user_order.phone_number = ''
           @user_order.valid?
-          expect(@user_order.errors.full_messages).to include("電話番号を入力してください")
+          expect(@user_order.errors.full_messages).to include('電話番号を入力してください')
         end
         it 'phone_numberが整数以外だと登録できない' do
           @user_order.phone_number = 'あああああああああああ'
@@ -72,7 +72,7 @@ RSpec.describe UserOrder, type: :model do
         it 'tokenが空だと購入できない' do
           @user_order.token = ''
           @user_order.valid?
-          expect(@user_order.errors.full_messages).to include("クレジットカード情報を入力してください")
+          expect(@user_order.errors.full_messages).to include('クレジットカード情報を入力してください')
         end
       end
     end
