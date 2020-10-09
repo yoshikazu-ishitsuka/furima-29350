@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# 商品出品テスト
 RSpec.describe "商品出品機能", type: :system do
   before do
     @user = FactoryBot.create(:user)
@@ -66,6 +67,7 @@ RSpec.describe "商品出品機能", type: :system do
   end
 end
 
+# 商品編集テスト
 RSpec.describe '出品商品編集', type: :system do
   before do
     # @item1 = FactoryBot.create(:item)
@@ -169,7 +171,77 @@ RSpec.describe '出品商品編集', type: :system do
       # 商品2の商品詳細ページに遷移する
       visit item_path(@item2.id)
       # 商品2に「編集」ボタンがないことを確認する
-      expect(page).to_not have_content '商品の編集'    
+      expect(page).to_not have_content '商品の編集'
     end
   end
 end
+
+# 商品削除テスト
+RSpec.describe '商品削除', type: :system do
+  before do
+    @item1 = FactoryBot.build(:item)
+    @item1.image = fixture_file_upload('sample.png')
+    @item1.save
+    @item2 = FactoryBot.build(:item)
+    @item2.image = fixture_file_upload('sample.jpg')
+    @item2.save
+  end
+
+  context '商品削除ができるとき' do
+    it 'ログインしたユーザーは自らが出品した商品の削除ができる' do
+      # 商品1を出品したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'email', with: @item1.user.email
+      fill_in 'password', with: @item1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq root_path
+      # 商品1の詳細ページに遷移する
+      visit item_path(@item1)
+      # 商品1の詳細ページに「削除」ボタンがあることを確認する
+      expect(page).to have_content('削除')
+      # expect(page).to have_link '削除', href: item_path(@item1) #リンクの有無を確かめる必要はない
+      # 商品を削除するとレコードの数が1減ることを確認する
+      expect{find_link('削除', href: item_path(@item1)).click}.to change { Item.count }.by(-1)
+      # expect(page).to have_link '商品の編集', href: edit_item_path(@item1)
+      # トップページに遷移したことを確認する
+      expect(current_path).to eq root_path
+      # トップページには商品1の内容が存在しないことを確認する（画像）
+      expect(page).to have_no_selector("img[src$='sample.png']")
+      # トップページには商品1の内容が存在しないことを確認する（商品名）
+      expect(page).to have_no_content(@item1.goods)
+      # トップページには商品1の内容が存在しないことを確認する（価格）
+      expect(page).to have_no_content(@item1.price)
+    end
+  end
+  
+  context '商品削除ができないとき' do
+    it 'ログインしたユーザーは自分以外が出品した商品の削除ができない' do
+      # 商品1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'email', with: @item1.user.email
+      fill_in 'password', with: @item1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq root_path
+      # 商品2の詳細ページに遷移する
+      visit item_path(@item2)
+      # 商品2の詳細ページに「削除」ボタンが無いことを確認する
+      expect(page).to have_no_content('削除')
+      # expect(page).to have_no_link '削除', href: item_path(@item2)
+    end
+    it 'ログインしていないと商品の削除ボタンがない' do
+      # トップページに移動する
+      visit root_path
+      # 商品1の詳細ページに遷移する
+      visit item_path(@item1)
+      # 商品1に「削除」ボタンが無いことを確認する
+      expect(page).to have_no_content('削除')
+      # トップページに移動する
+      visit root_path
+      # 商品2の詳細ページに遷移する
+      visit item_path(@item2)
+      # 商品2に「削除」ボタンが無いことを確認する
+      expect(page).to have_no_content('削除')
+    end
+  end
+end
+
