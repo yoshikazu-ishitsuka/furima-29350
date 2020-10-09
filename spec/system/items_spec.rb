@@ -1,4 +1,5 @@
 require 'rails_helper'
+## テストコード時はBasic認証をコメントアウトすること
 
 # 商品出品テスト
 RSpec.describe "商品出品機能", type: :system do
