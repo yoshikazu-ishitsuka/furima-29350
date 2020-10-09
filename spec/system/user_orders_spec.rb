@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe "商品購入機能", type: :system do
   before do
     @user_order = FactoryBot.build(:user_order)
-    @user = FactoryBot.create(:user)
+    @user1 = FactoryBot.create(:user)
     @user2 = FactoryBot.create(:user)
     @item1 = FactoryBot.build(:item)
     @item1.image = fixture_file_upload('sample.png')
@@ -16,12 +16,13 @@ end
 
   context '商品購入ができるとき'do
     it 'ログインしたユーザーは商品の購入ができる' do
-      # userでログインする
-      visit new_user_session_path
-      fill_in 'email', with: @user.email
-      fill_in 'password', with: @user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      # user1でログインする
+      sign_in(@user1)
+      # visit new_user_session_path
+      # fill_in 'email', with: @user1.email
+      # fill_in 'password', with: @user1.password
+      # find('input[name="commit"]').click
+      # expect(current_path).to eq root_path
       # 商品1の商品詳細ページへ遷移する     ### 商品1でも2でも大丈夫だと思うが便宜上商品1で設定している
       visit item_path(@item1)
       # 購入画面へのリンクがあることを確認する
@@ -64,11 +65,12 @@ end
       # ログアウトする
       find_link('ログアウト', href: destroy_user_session_path).click
       # user2でログインする
-      visit new_user_session_path
-      fill_in 'email', with: @user2.email
-      fill_in 'password', with: @user2.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@user2)
+      # visit new_user_session_path
+      # fill_in 'email', with: @user2.email
+      # fill_in 'password', with: @user2.password
+      # find('input[name="commit"]').click
+      # expect(current_path).to eq root_path
       # 購入済みの商品詳細ページに遷移する
       visit item_path(@item1)
       # 購入ボタンが無いことを確認する

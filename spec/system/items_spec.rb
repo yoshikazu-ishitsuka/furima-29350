@@ -11,11 +11,12 @@ RSpec.describe "商品出品機能", type: :system do
   context '商品出品が出来るとき' do
     it 'ログインしたユーザーは商品出品が出来る' do
       # ログインする
-      visit new_user_session_path
-      fill_in 'email', with: @user.email
-      fill_in 'password', with: @user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@user)
+      # visit new_user_session_path
+      # fill_in 'email', with: @user.email
+      # fill_in 'password', with: @user.password
+      # find('input[name="commit"]').click
+      # expect(current_path).to eq root_path
       # 商品出品ページへのリンクがあることを確認する
       expect(page).to have_content('出品する')
       # 商品出品ページに移動する
@@ -82,11 +83,12 @@ RSpec.describe '出品商品編集', type: :system do
   context '出品商品編集ができるとき' do
     it 'ログインしたユーザーは自分が出品した商品の編集ができる' do
       # 商品1を出品したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'email', with: @item1.user.email
-      fill_in 'password', with: @item1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@item1.user)
+      # visit new_user_session_path
+      # fill_in 'email', with: @item1.user.email
+      # fill_in 'password', with: @item1.user.password
+      # find('input[name="commit"]').click
+      # expect(current_path).to eq root_path
       # 商品1の商品詳細ページへ遷移する
       # binding.pry
       visit item_path(@item1.id)
@@ -151,11 +153,12 @@ RSpec.describe '出品商品編集', type: :system do
   context '出品商品編集ができないとき' do
     it 'ログインしたユーザーは自分以外が出品した商品の編集画面には遷移できない' do
       # 商品1を出品したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'email', with: @item1.user.email
-      fill_in 'password', with: @item1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@item1.user)
+      # visit new_user_session_path
+      # fill_in 'email', with: @item1.user.email
+      # fill_in 'password', with: @item1.user.password
+      # find('input[name="commit"]').click
+      # expect(current_path).to eq root_path
       # 商品2の商品詳細ページに遷移する
       visit item_path(@item2.id)
       # 商品2に「編集」ボタンがないことを確認する
@@ -190,11 +193,12 @@ RSpec.describe '商品削除', type: :system do
   context '商品削除ができるとき' do
     it 'ログインしたユーザーは自らが出品した商品の削除ができる' do
       # 商品1を出品したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'email', with: @item1.user.email
-      fill_in 'password', with: @item1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@item1.user)
+      # visit new_user_session_path
+      # fill_in 'email', with: @item1.user.email
+      # fill_in 'password', with: @item1.user.password
+      # find('input[name="commit"]').click
+      # expect(current_path).to eq root_path
       # 商品1の詳細ページに遷移する
       visit item_path(@item1)
       # 商品1の詳細ページに「削除」ボタンがあることを確認する
@@ -213,15 +217,16 @@ RSpec.describe '商品削除', type: :system do
       expect(page).to have_no_content(@item1.price)
     end
   end
-  
+
   context '商品削除ができないとき' do
     it 'ログインしたユーザーは自分以外が出品した商品の削除ができない' do
       # 商品1を投稿したユーザーでログインする
-      visit new_user_session_path
-      fill_in 'email', with: @item1.user.email
-      fill_in 'password', with: @item1.user.password
-      find('input[name="commit"]').click
-      expect(current_path).to eq root_path
+      sign_in(@item1.user)
+      # visit new_user_session_path
+      # fill_in 'email', with: @item1.user.email
+      # fill_in 'password', with: @item1.user.password
+      # find('input[name="commit"]').click
+      # expect(current_path).to eq root_path
       # 商品2の詳細ページに遷移する
       visit item_path(@item2)
       # 商品2の詳細ページに「削除」ボタンが無いことを確認する
