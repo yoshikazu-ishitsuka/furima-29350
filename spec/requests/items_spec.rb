@@ -1,10 +1,10 @@
 require 'rails_helper'
-# テストコード実行時はapplication_controllerのBasicAuthを解除すること
+# テストコード実行時はapplication_controllerのBasicAuthをコメントアウトすること
 
 RSpec.describe "ItemsController", type: :request do
   # let(:user) { create(:user) }
   # let(:item) { create(:item) }
-  before(:each) do
+  before do
     # config.include ActionDispatch::TestProcess
     @item = FactoryBot.build(:item)
     # @item.image = fixture_file_upload('sample.jpg')
@@ -18,7 +18,7 @@ RSpec.describe "ItemsController", type: :request do
   end
 
 
-  describe "GET /items" do
+  describe "GET /index" do
     it 'indexアクションにリクエストすると正常にレスポンスが返ってくる' do
       # login user
       # get :new
@@ -36,16 +36,50 @@ RSpec.describe "ItemsController", type: :request do
     end
     it 'indexアクションにリクエストするとレスポンスに出品済みの商品の画像が存在する' do
       get root_path
+      # binding.pry
       expect(response.body).to include 'sample.png'
     end
-    # it 'indexアクションにリクエストするとレスポンスに出品済みの商品の販売価格が存在する' do
-    #   get root_path
-    #   expect(response).to render_template :index
+    it 'indexアクションにリクエストするとレスポンスに出品済みの商品の販売価格が存在する' do
+      get root_path
+      expect(response.body).to include @item.price.to_s
     # end
     #   it '@user' do
     #     get :index
     #     expect(assigns :users).to eq users
-    #   end
-
+    end
+    
+    it 'indexアクションにリクエストするとレスポンスに新規投稿商品一覧が存在する' do
+      get root_path
+      expect(response.body).to include '新規投稿商品'
+    end
+  
   end
+
+  describe "GET #show" do
+    it "showアクションにリクエストすると正常にレスポンスが返ってくる" do 
+      get item_path(@item)
+      expect(response.status).to eq 200
+    end
+    it "showアクションにリクエストするとレスポンスに出品済みの商品の商品名が存在する" do 
+      get item_path(@item)
+      expect(response.body).to include @item.goods
+    end
+    it "showアクションにリクエストするとレスポンスに出品済みの商品の画像が存在する" do 
+      get item_path(@item)
+      expect(response.body).to include 'sample.png'
+    end
+    it "showアクションにリクエストするとレスポンスに出品済みの商品の価格が存在する" do 
+      get item_path(@item)
+      expect(response.body).to include @item.price.to_s
+    end
+    it "showアクションにリクエストするとレスポンスに出品済みの商品の商品説明が存在する" do 
+      get item_path(@item)
+      expect(response.body).to include @item.details
+    end
+    it "showアクションにリクエストするとレスポンスにコメント入力欄が存在する" do 
+      get item_path(@item)
+      expect(response.body).to include 'コメントする'
+    end
+  end 
+
 end
